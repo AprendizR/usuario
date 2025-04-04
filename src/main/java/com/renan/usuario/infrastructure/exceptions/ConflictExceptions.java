@@ -1,4 +1,4 @@
-package com.renan.aprendendospring.infrastructure.exceptions;
+package com.renan.usuario.infrastructure.exceptions;
 
 public class ConflictExceptions extends RuntimeException{
     public ConflictExceptions(String mensagem){

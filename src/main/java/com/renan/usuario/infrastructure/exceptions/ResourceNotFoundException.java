@@ -1,4 +1,4 @@
-package com.renan.aprendendospring.infrastructure.exceptions;
+package com.renan.usuario.infrastructure.exceptions;
 
 public class ResourceNotFoundException extends RuntimeException {
     public ResourceNotFoundException(String mensagem){
