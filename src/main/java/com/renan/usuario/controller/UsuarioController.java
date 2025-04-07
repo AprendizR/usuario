@@ -74,4 +74,5 @@ public class UsuarioController {
                                                         @RequestHeader ("authorization") String token){
         return ResponseEntity.ok(usuarioService.cadastroTelefone(token, dto));
     }
+
 }
