@@ -1,8 +1,10 @@
 package com.renan.usuario.controller;
 
+import com.renan.usuario.infrastructure.clients.ViaCepDTO;
 import com.renan.usuario.infrastructure.entity.Usuario;
 import com.renan.usuario.infrastructure.security.JwtUtil;
 import com.renan.usuario.services.UsuarioService;
+import com.renan.usuario.services.ViaCepService;
 import com.renan.usuario.services.dto.EnderecoDTO;
 import com.renan.usuario.services.dto.TelefoneDTO;
 import com.renan.usuario.services.dto.UsuarioDTO;
@@ -22,6 +24,7 @@ public class UsuarioController {
     private final UsuarioService usuarioService;
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
+    private final ViaCepService viaCepService;
 
     @PostMapping
     public ResponseEntity<UsuarioDTO> salvaUsuario(@RequestBody UsuarioDTO usuarioDTO){
@@ -73,5 +76,10 @@ public class UsuarioController {
     public ResponseEntity<TelefoneDTO> cadastroTelefone(@RequestBody TelefoneDTO dto,
                                                         @RequestHeader ("authorization") String token){
         return ResponseEntity.ok(usuarioService.cadastroTelefone(token, dto));
+    }
+
+    @GetMapping ("/endereco/{cep}")
+    public ResponseEntity<ViaCepDTO> buscarDadosCep(@PathVariable("cep") String cep){
+        return ResponseEntity.ok(viaCepService.buscarDadosEndereco(cep));
     }
 }

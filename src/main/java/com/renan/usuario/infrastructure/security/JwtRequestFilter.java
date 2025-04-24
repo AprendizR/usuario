@@ -30,6 +30,21 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
 
+        // Obtém o valor do caminho da requisição
+        String path = request.getRequestURI();
+
+        // Ignora as requisições para o Swagger e outros endpoints públicos
+        if (path.startsWith("/v3/api-docs") ||
+                path.startsWith("/swagger-ui") ||
+                path.equals("/swagger-ui.html") ||
+                path.equals("/usuario/login") ||
+                (request.getMethod().equals("POST") && path.equals("/usuario")) ||
+                path.startsWith("/usuario/endereco")) {
+            // Se for um desses caminhos, o filtro apenas passa adiante
+            chain.doFilter(request, response);
+            return;
+        }
+
         // Obtém o valor do header "Authorization" da requisição
         final String authorizationHeader = request.getHeader("Authorization");
 
@@ -55,7 +70,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             }
         }
 
+
         // Continua a cadeia de filtros, permitindo que a requisição prossiga
         chain.doFilter(request, response);
     }
 }
+
